@@ -61,15 +61,15 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', type=str,
-                        default='./data/mscoco/images/train2014',
+                        default='/DATA1/datasets/COCO2014/train2014',
                         help='the directory that contains images.')
     parser.add_argument('--files', type=str, default=None, help='file lists')
     parser.add_argument('--batch_size', type=int, default=196, help='batch size')
     parser.add_argument('--shuffle', type=bool, default=False, help='whether to shuffle the dataset')
-    parser.add_argument('--num_workers', type=int, default=2, help='the number of threads for data loader')
+    parser.add_argument('--num_workers', type=int, default=6, help='the number of threads for data loader')
     parser.add_argument('--model_path', type=str, default='./model/vgg_fea.pth',
                         help='The path to the feature extraction model')
-    parser.add_argument('--save_name', type=str, default='./data/fea_mscoco_val.pth', help='Where to save the files.')
+    parser.add_argument('--save_name', type=str, default='./data/name_feature_train_t.pth', help='Where to save the files.')
     args = parser.parse_args()
     print args
     main(args)
