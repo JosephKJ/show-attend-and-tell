@@ -81,6 +81,8 @@ class Decoder(nn.Module):
         fc_dropout = self.fc_dropout
         fc_out = self.fc_out
 
+        features = features.view(features.size(0), self.vis_dim, self.vis_num).transpose(1, 2)
+
         word_embeddings = embed(captions)
         word_embeddings = dropout(word_embeddings) if dropout is not None else word_embeddings
         feas = torch.mean(features, 1)  # batch_size * 512
