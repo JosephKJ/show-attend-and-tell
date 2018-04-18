@@ -85,11 +85,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # data loader
     parser.add_argument('--image_root', type=str,
-                        default='./data/mscoco/images/train2014')
+                        default='/DATA1/datasets/COCO2014/train2014')
     parser.add_argument('--feature_path', type=str,
                         default='./data/name_feature_train_t.pth')
     parser.add_argument('--ann_path', type=str,
-                        default='./data/mscoco/annotations/captions_train2014.json')
+                        default='/DATA1/datasets/COCO2014/annotations/captions_train2014.json')
     parser.add_argument('--vocab_path', type=str,
                         default='./data/vocab.pkl')
     parser.add_argument('--batch_size', type=int, default=128)
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 
     # model setting
     parser.add_argument('--vis_dim', type=int, default=512)
-    parser.add_argument('--vis_num', type=int, default=196)
+    parser.add_argument('--vis_num', type=int, default=196) # Batch size, changed to 10
     parser.add_argument('--embed_dim', type=int, default=512)
     parser.add_argument('--hidden_dim', type=int, default=512)
     parser.add_argument('--vocab_size', type=int, default=10000)

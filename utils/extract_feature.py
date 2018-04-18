@@ -9,9 +9,9 @@ from torch.autograd import Variable
 
 def get_model(model_path=None):
     if model_path is None:
-        vgg = models.vgg16_bn(pretrained=True)
-        model = nn.Sequential(*(vgg.features[i] for i in xrange(29)))
-        torch.save(model, './utils/vgg_model.pth')
+        vgg = models.vgg16(pretrained=True)
+        model = nn.Sequential(*(vgg.features[i] for i in xrange(29)))  # Extracting Conv5_3
+        torch.save(model, './utils/vgg16_model.pth')
     else:
         model = torch.load(model_path)
     return torch.nn.DataParallel(model, device_ids=[0, 1, 2])
@@ -66,8 +66,8 @@ if __name__ == '__main__':
     parser.add_argument('--files', type=str, default=None, help='file lists')
     parser.add_argument('--batch_size', type=int, default=196, help='batch size')
     parser.add_argument('--shuffle', type=bool, default=False, help='whether to shuffle the dataset')
-    parser.add_argument('--num_workers', type=int, default=6, help='the number of threads for data loader')
-    parser.add_argument('--model_path', type=str, default='./model/vgg_fea.pth',
+    parser.add_argument('--num_workers', type=int, default=2, help='the number of threads for data loader')
+    parser.add_argument('--model_path', type=str, default='./utils/vgg16_model.pth',
                         help='The path to the feature extraction model')
     parser.add_argument('--save_name', type=str, default='./data/name_feature_train_t.pth', help='Where to save the files.')
     args = parser.parse_args()

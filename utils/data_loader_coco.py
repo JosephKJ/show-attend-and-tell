@@ -20,6 +20,11 @@ class CocoDataset(data.Dataset):
         self._features = self._features[1]
 
     def _build_index(self):
+
+        # print (len(self._features))
+        # print (self._features[1][0].size())
+        # print (len(self._features[1]))
+
         imageId_to_image = {}
         imageName_to_image = {}
         imageName_to_feature_idx = {}
@@ -55,7 +60,6 @@ class CocoDataset(data.Dataset):
         feature_idx = self._imageName_to_feature_idx[image['file_name']]
         feature = self._features[feature_idx] # 512*196
         caption = self._get_caption_tensor(caption)
-
         return feature, caption
 
     def collate_fn(self, data):

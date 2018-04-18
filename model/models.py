@@ -1,12 +1,14 @@
 import torch
 from torch.autograd import Variable
 import torch.nn as nn
+import torchvision.models as models
 
 
 def to_var(x, volatile=False):
     if torch.cuda.is_available():
         x = x.cuda()
     return Variable(x, volatile=volatile)
+
 
 class EncoderVGG(nn.Module):
     def __init__(self, model_path=None):
@@ -19,6 +21,7 @@ class EncoderVGG(nn.Module):
             
     def forward(self, x):
         return self._vgg_extractor(x)
+
 
 class Decoder(nn.Module):
 
@@ -90,6 +93,8 @@ class Decoder(nn.Module):
             if step != 0:
                 feas, alpha = attention_layer(features[:batch_size, :], h0[:batch_size, :])
             words = (word_embeddings[:batch_size, step, :]).squeeze(1)
+            print feas.size()
+            print words.size()
             inputs = torch.cat([feas, words], 1)
             h0, c0 = lstm_cell(inputs, (h0[:batch_size, :], c0[:batch_size, :]))
             outputs = fc_out(fc_dropout(h0)) if fc_dropout is not None else fc_out(h0)
@@ -136,7 +141,7 @@ class Decoder(nn.Module):
 if __name__ == '__main__':
     # for test
     vis_dim = 512
-    vis_num = 196
+    vis_num = 196 # Changed to 10
     embed_dim = 512
     hidden_dim = 512
     vocab_size = 1000
